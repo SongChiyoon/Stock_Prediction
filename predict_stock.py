@@ -2,6 +2,8 @@ import tensorflow as tf
 from tensorflow.contrib import rnn
 import numpy as np
 import matplotlib.pyplot as plt
+from pandas_datareader import data, wb
+import datetime
 sequence = 7
 inputD = 5
 outD = 1
@@ -30,6 +32,19 @@ def dataConvert(data):
     y_data = np.array(y_data)
     return x_data, y_data
 
+
+#collecting data set
+start = datetime.datetime(2010,1,1)
+end = datetime.datetime.now()
+stocks =["KRX:005380", "NASDAQ:AAPL", "NASDAQ:GOOGL", "KRX:005930"]
+
+print(len)
+df = []
+for i,stock in enumerate(stocks):
+    df.append( data.DataReader(
+        stock,"google",start,end
+    ))
+df[0].as_matrix()
 data = np.loadtxt('TSLA.csv', delimiter=',')
 x_data, y_data = dataConvert(data)
 
